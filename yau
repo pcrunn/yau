@@ -1,0 +1,26 @@
+#!/usr/bin/sh
+
+filename=$1
+extension="${filename#*.}"
+
+if [[ ! -f $filename ]]; then
+    echo "$filename doesn't exist"
+    exit 1
+fi
+
+case "$extension" in
+    "tar.gz" | "tgz")
+        : "tar -zxvf"
+    ;;
+
+    "zip")
+        : "unzip"
+    ;;
+
+    *)
+        echo 'unknown file extension'
+        exit 1
+    ;;
+esac
+
+eval "$_ $filename"
